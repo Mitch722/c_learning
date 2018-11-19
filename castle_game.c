@@ -116,7 +116,9 @@ void append_list(list_t *list, int new_val, char strg_for_cpy[STR_LEN], int prev
   }
   list->count += 1;
 }
-
+/**
+ *  Appends to the end of the list and makes a_key and d_key NULL pointers
+ **/
 void append_list_no_links(list_t *list, int new_val, char strg_for_cpy[STR_LEN]){
   // fulfill case of a new list
   if ( list->head == NULL){
@@ -148,7 +150,9 @@ void append_list_no_links(list_t *list, int new_val, char strg_for_cpy[STR_LEN])
   list->count += 1;
 }
 
-
+/**
+ * add links to a_key and d_key to existing list
+ **/
 void update_links(list_t *list, int node_val, int target_val, char which_link){
 
   node_t *node;
@@ -222,11 +226,13 @@ int check_null_a_d(list_t *list){
   return test_val;
 }
 
-
+/**
+ * main loop: build linked-list and connections between nodes
+ **/
 int main(void) {
 
   list_t *list = create_list();
-
+  // build linked-list
   append_list_no_links(list, 1, "You are in the atrium enter room on left or right [a/d]");
   append_list(list, 2, "Here is the Dragon press [a] to slay the dragon or [d] to run away", 1, 'a');
   append_list(list, 3, "There is a chest and a door: open chest [d], go through door [a]", 1, 'd');
@@ -241,13 +247,12 @@ int main(void) {
 
   update_links(list, 2, 1, 'a');
   update_links(list, 2, 1, 'd');
-
+  // check nullity of the connections
   int null_check = check_null_a_d(list);
   if (null_check == -1){
     printf("Exit due to nullity fail\n");
     return 1;
   }
-
 
   // begin the game part of the nodes
   node_t *node;
@@ -256,7 +261,7 @@ int main(void) {
 
   unsigned int completion = 0;
   unsigned int dragon = 0;
-
+  // begin the game with a statement
   printf("\nWelcome to the Castle, your job is to find the Treasure!\n\n\
 A Dragon guards the Treasure, so find the sword and slay it\n\n\
 Press key a, key d, then return to navigate or q to quit\n\n");
